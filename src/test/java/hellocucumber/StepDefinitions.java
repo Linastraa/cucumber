@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.time.Duration;
+
 public class StepDefinitions {
 
     private WebDriver driver;
@@ -19,14 +21,14 @@ public class StepDefinitions {
     }
 
     @Then("user waits for {int} seconds")
-    public void userWaitsForSeconds(int seconds) throws InterruptedException {
-        Thread.sleep(seconds);
+    public void userWaitsForSeconds(int seconds) {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(seconds));
     }
 
     @And("verifies that the page title contains the word {string}")
     public void verifiesPageTitleContainsWord(String expectedTitle) {
         String actualTitle = driver.getTitle();
-        Assertions.assertTrue( actualTitle.contains(expectedTitle));
+        Assertions.assertTrue(actualTitle.contains(expectedTitle));
     }
 
     @And("closes the page")
